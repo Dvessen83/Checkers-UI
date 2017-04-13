@@ -7,7 +7,7 @@ import subscribeToGames from '../actions/games/subscribe'
 
 class CheckersBoard extends PureComponent {
   static propTypes = {
-    board: PropTypes.array.isRequired,
+    // board: PropTypes.array.isRequired,
     // fetchBoard: PropTypes.func.isRequired,
   }
 
@@ -15,18 +15,31 @@ class CheckersBoard extends PureComponent {
     this.props.subscribeToGames()
 
     // this.props.fetchBoard()
-    console.log(this.props.checkers)
-
-    console.log(this.props.params.id)
+    // console.log('Helooooo!')
+    // console.log(this.props.games[0].checkers)
+    //
+    // console.log(this.props.params.id)
   }
 
 
 
 
   render() {
+    const { id } = this.props.params
+    const ourGame = this.props.games.filter(function(element) {
+      return element._id === id
+    })[0]
+
+    console.log(ourGame)
+
     return (
       <div className = "checkers">
-        <h1>Board goes here!</h1>
+        <h1>{ ourGame.title }</h1>
+
+        { ourGame.checkers.map(function(element) {
+
+          return element.value
+        }) }
 
       </div>
     )
@@ -35,6 +48,6 @@ class CheckersBoard extends PureComponent {
 
 }
 
-const mapStateToProps = ( {games} ) => ( { games } )
+const mapStateToProps = ( { games } ) => ( { games } )
 
 export default connect (mapStateToProps, { subscribeToGames }) (CheckersBoard)
