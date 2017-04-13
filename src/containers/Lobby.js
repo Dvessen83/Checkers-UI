@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import subscribeToGames from '../actions/games/subscribe'
 import createGame from '../actions/games/create'
 import joinGame from '../actions/games/join'
+import { history } from '../store'
+
 import './Lobby.sass'
 
 class Lobby extends PureComponent {
@@ -18,6 +20,10 @@ class Lobby extends PureComponent {
       label="Create Game"
       primary={true} />
   }
+
+
+
+
   render() {
     return (
       <div className="games lobby">
@@ -40,6 +46,10 @@ class Lobby extends PureComponent {
                   style={{ padding: '12px 24px' }}>
                   <h4>{ game.title }</h4>
                   { game.playerIds.length < 2 && <button onClick={() => {this.props.joinGame(game._id)}}>Join</button> }
+
+                  <h3>
+                    <button onClick={() => {history.push('/checkersboard/' + game._id)}}>Start</button>
+                  </h3>
                 </Paper>
               )
             })}
