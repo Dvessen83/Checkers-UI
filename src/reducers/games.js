@@ -2,8 +2,9 @@ import {
   SUBSCRIBED_TO_GAMES_SERVICE,
   GAME_CREATED,
   GAME_UPDATED,
-  GAME_REMOVED
+  GAME_REMOVED,
 } from '../actions/games/subscribe'
+import { FETCHED_BOARD } from '../actions/games/fetchBoard'
 
 export default (state = [], { type, payload } = {}) => {
   switch (type) {
@@ -25,6 +26,9 @@ export default (state = [], { type, payload } = {}) => {
     case GAME_REMOVED :
       return state.filter((game) => (game._id !== payload._id))
 
+    case FETCHED_BOARD :
+      return [].concat(payload)
+      
     default :
       return state
   }

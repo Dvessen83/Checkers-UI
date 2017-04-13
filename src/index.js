@@ -11,12 +11,14 @@ import ChatRoom from './containers/ChatRoom'
 import Lobby from './containers/Lobby'
 import SignUp from './containers/SignUp'
 import SignIn from './containers/SignIn'
+import CheckersBoard from './containers/CheckersBoard'
 
 import {
   ROOT_PATH,
   CHAT_PATH,
   USER_SIGN_UP_PATH,
   USER_SIGN_IN_PATH,
+  CHECKERS_BOARD_PATH
 } from './routes'
 
 // Needed for onTouchTap
@@ -31,6 +33,7 @@ ReactDOM.render(
         <Route path={CHAT_PATH} component={ChatRoom} />
         <Route path={USER_SIGN_UP_PATH} component={SignUp} />
         <Route path={USER_SIGN_IN_PATH} component={SignIn} />
+        <Route path={CHECKERS_BOARD_PATH} component={CheckersBoard} />
       </Route>
     </Router>
   </Provider>,
