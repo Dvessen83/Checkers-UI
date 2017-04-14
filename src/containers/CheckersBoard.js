@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import './CheckersBoard.sass'
+import submitMove from '../actions/games/submitMove'
 
 import toggleSelect from '../actions/games/selected_element'
 import subscribeToGames from '../actions/games/subscribe'
@@ -50,11 +51,16 @@ class CheckersBoard extends PureComponent {
     console.log(checker.x, checker.y)
     this.state.positions.push(checker.x, checker.y)
     console.log(this.state.positions)
-    this.props.myFunc2(this.state.positions)
+    // this.props.myFunc2(this.state.positions)
   }
-  myFunc2(positions) {
+  endTurn() {
 
-    return console.log("I'm Full!")
+
+    console.log(this.props.params)
+    this.state.positions = []
+    console.log(this.state)
+    console.log("Submit!")
+    return this.props.submitMove(this.state.positions)
   }
 
 
@@ -68,24 +74,23 @@ class CheckersBoard extends PureComponent {
 
     console.log(ourGame)
 
-    let newerPositions = []
-    newerPositions.push(this.myFunc1, this.myFunc2)
-    console.log(newerPositions)
-
     return (
       <div className="checkers">
         <h1>{ ourGame.title }</h1>
-        
+
           { ourGame.checkers.map((element) => {
 
           // let checkerId= "checker_" + element.x + "_" + element.y
     return <div className="checkerfield">
 
-             <button onClick={this.myFunc1.bind(this, element)} >{element.value}
-             </button>
+             <button onClick={this.myFunc1.bind(this, element)} >{element.value} </button>
 
           </div>
+
       }) }
+      <div>
+        <button onClick={this.endTurn.bind(this)} >Submit </button>
+      </div>
 
       </div>
 
@@ -95,4 +100,4 @@ class CheckersBoard extends PureComponent {
 
 const mapStateToProps = ( { games } ) => ( { games } )
 
-export default connect (mapStateToProps, { subscribeToGames }) (CheckersBoard)
+export default connect (mapStateToProps, { subscribeToGames, submitMove }) (CheckersBoard)
