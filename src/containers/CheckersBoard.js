@@ -7,21 +7,17 @@ import subscribeToGames from '../actions/games/subscribe'
 // import fetchBoard from '../actions/games/fetchBoard'
 
 class CheckersBoard extends PureComponent {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired
-    //isSelected: Proptypes.bool.isRequired
-    // board: PropTypes.array.isRequired,
-    // fetchBoard: PropTypes.func.isRequired,
+  constructor() {
+    super()
+
+    this.state = {
+      positions: []
+    }
   }
+
 
   componentDidMount() {
     this.props.subscribeToGames()
-
-    // this.props.fetchBoard()
-    // console.log('Helooooo!')
-    // console.log(this.props.games[0].checkers)
-    //
-    // console.log(this.props.params.id)
   }
   // onclick change toggle element.selected
 
@@ -41,13 +37,28 @@ class CheckersBoard extends PureComponent {
   }
 
 
+  // positionsFull((positions) => {
+  //   console.log("im Full!")
+  //   // if (positions.length == 4) {
+  //   //
+  //   // }
+  // })
 
-  toggleSelect(// XXX: ) {
-    this.props.onChange(this.props)
+
+  myFunc1(checker,y) {
+    // let newPositions = []
+    console.log(checker.x, checker.y)
+    this.state.positions.push(checker.x, checker.y)
+    console.log(this.state.positions)
+    this.props.myFunc2(this.state.positions)
   }
-  myFunc() {
-    console.log("hi")
+  myFunc2(positions) {
+
+    return console.log("I'm Full!")
   }
+
+
+
 
   render() {
     const { id } = this.props.params
@@ -56,19 +67,25 @@ class CheckersBoard extends PureComponent {
     })[0]
 
     console.log(ourGame)
-    const { selected } = this.props
+
+    let newerPositions = []
+    newerPositions.push(this.myFunc1, this.myFunc2)
+    console.log(newerPositions)
+
     return (
       <div className="checkers">
         <h1>{ ourGame.title }</h1>
+        
           { ourGame.checkers.map((element) => {
 
           // let checkerId= "checker_" + element.x + "_" + element.y
     return <div className="checkerfield">
 
-             <button onClick={ this.myFunc }> {element.value}
+             <button onClick={this.myFunc1.bind(this, element)} >{element.value}
              </button>
-             </div>
-        }) }
+
+          </div>
+      }) }
 
       </div>
 
@@ -78,4 +95,4 @@ class CheckersBoard extends PureComponent {
 
 const mapStateToProps = ( { games } ) => ( { games } )
 
-export default connect (mapStateToProps, { subscribeToGames, onChange: toggleSelect }) (CheckersBoard)
+export default connect (mapStateToProps, { subscribeToGames }) (CheckersBoard)
