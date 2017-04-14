@@ -4,6 +4,7 @@ import {
   GAME_UPDATED,
   GAME_REMOVED,
 } from '../actions/games/subscribe'
+import { TOGGLE_SELECT } from '../actions/games/selected_element'
 
 
 export default (state = [], { type, payload } = {}) => {
@@ -26,6 +27,14 @@ export default (state = [], { type, payload } = {}) => {
     case GAME_REMOVED :
       return state.filter((game) => (game._id !== payload._id))
 
+    case TOGGLE_SELECT :
+    return state.map((element) => {
+      if (element.selected === payload) {
+        return { ...element, selected: !element.selected }
+      }
+      console.log(payload)
+      return game
+    })
 
     default :
       return state
